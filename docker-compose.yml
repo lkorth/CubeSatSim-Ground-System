@@ -1,0 +1,175 @@
+networks:
+  default:
+    name: cubesatsim-ground-system
+
+services:
+  openc3-minio:
+    image: "docker.io/openc3inc/openc3-minio:5.16.2"
+    volumes:
+      - "openc3-bucket-v:/data"
+      - "./cacert.pem:/devel/cacert.pem:z"
+    command: server --address ":9000" --console-address ":9001" /data
+    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      MINIO_ROOT_USER: "openc3minio"
+      MINIO_ROOT_PASSWORD: "openc3miniopassword"
+      # Domain doesn't really matter but it's required. We really want the /minio path.
+      # This is handled by our traefik configuration via rule: PathPrefix(`/minio`)
+      # and forwarded on to the console at http://openc3-minio:9001
+      MINIO_BROWSER_REDIRECT_URL: "http://openc3.com/minio"
+      SSL_CERT_FILE: "/devel/cacert.pem"
+      CURL_CA_BUNDLE: "/devel/cacert.pem"
+      REQUESTS_CA_BUNDLE: "/devel/cacert.pem"
+      NODE_EXTRA_CA_CERTS: "/devel/cacert.pem"
+
+  openc3-redis:
+    image: "docker.io/openc3inc/openc3-redis:5.16.2"
+    volumes:
+      - "openc3-redis-v:/data"
+      - "./cacert.pem:/devel/cacert.pem:z"
+      - "./openc3-redis/users.acl:/config/users.acl:z"
+    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      SSL_CERT_FILE: "/devel/cacert.pem"
+      CURL_CA_BUNDLE: "/devel/cacert.pem"
+      REQUESTS_CA_BUNDLE: "/devel/cacert.pem"
+      NODE_EXTRA_CA_CERTS: "/devel/cacert.pem"
+
+  openc3-redis-ephemeral:
+    image: "docker.io/openc3inc/openc3-redis:5.16.2"
+    volumes:
+      - "openc3-redis-ephemeral-v:/data"
+      - "./cacert.pem:/devel/cacert.pem:z"
+      - "./openc3-redis/users.acl:/config/users.acl:z"
+    restart: "unless-stopped"
+    command: ["redis-server", "/config/redis_ephemeral.conf"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      SSL_CERT_FILE: "/devel/cacert.pem"
+      CURL_CA_BUNDLE: "/devel/cacert.pem"
+      REQUESTS_CA_BUNDLE: "/devel/cacert.pem"
+      NODE_EXTRA_CA_CERTS: "/devel/cacert.pem"
+
+  openc3-cosmos-cmd-tlm-api:
+    image: "docker.io/openc3inc/openc3-cosmos-cmd-tlm-api:5.16.2"
+    restart: "unless-stopped"
+    depends_on:
+      - "openc3-redis"
+      - "openc3-redis-ephemeral"
+      - "openc3-minio"
+    volumes:
+      - "openc3-gems-v:/gems"
+      - "./plugins:/plugins:z"
+      - "./cacert.pem:/devel/cacert.pem:z"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - "openc3.env"
+
+  openc3-cosmos-script-runner-api:
+    image: "docker.io/openc3inc/openc3-cosmos-script-runner-api:5.16.2"
+    restart: "unless-stopped"
+    depends_on:
+      - "openc3-redis"
+      - "openc3-redis-ephemeral"
+      - "openc3-minio"
+    volumes:
+      - "openc3-gems-v:/gems:ro"
+      - "./plugins:/plugins:z"
+      - "./cacert.pem:/devel/cacert.pem:z"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - "openc3.env"
+
+  openc3-operator:
+    image: "docker.io/openc3inc/openc3-operator:5.16.2"
+    restart: "unless-stopped"
+    depends_on:
+      - "openc3-redis"
+      - "openc3-redis-ephemeral"
+      - "openc3-minio"
+    volumes:
+      - "openc3-gems-v:/gems:ro"
+      - "./plugins:/plugins:z"
+      - "./cacert.pem:/devel/cacert.pem:z"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - "openc3.env"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  openc3-traefik:
+    image: "docker.io/openc3inc/openc3-traefik:5.16.2"
+    volumes:
+      - "./cacert.pem:/devel/cacert.pem:z"
+      - "./openc3-traefik/traefik.yaml:/etc/traefik/traefik.yaml:z"
+    ports:
+      - "127.0.0.1:2900:2900"
+      - "127.0.0.1:2943:2943"
+    restart: "unless-stopped"
+    depends_on:
+      - "openc3-redis"
+      - "openc3-redis-ephemeral"
+      - "openc3-minio"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      SSL_CERT_FILE: "/devel/cacert.pem"
+      CURL_CA_BUNDLE: "/devel/cacert.pem"
+      REQUESTS_CA_BUNDLE: "/devel/cacert.pem"
+      NODE_EXTRA_CA_CERTS: "/devel/cacert.pem"
+
+  openc3-cosmos-init:
+    image: "docker.io/openc3inc/openc3-cosmos-init:5.16.2"
+    restart: on-failure
+    depends_on:
+      - "openc3-traefik"
+      - "openc3-redis"
+      - "openc3-redis-ephemeral"
+      - "openc3-minio"
+    volumes:
+      - "openc3-gems-v:/gems"
+      - "./plugins:/plugins:z"
+      - "./cacert.pem:/devel/cacert.pem:z"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    env_file:
+      - "openc3.env"
+
+volumes:
+  openc3-redis-v: {}
+  openc3-redis-ephemeral-v: {}
+  openc3-bucket-v: {}
+  openc3-gems-v: {}
+
