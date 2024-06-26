@@ -75,6 +75,8 @@ services:
       - "openc3-gems-v:/gems"
       - "./plugins:/plugins:z"
       - "./cacert.pem:/devel/cacert.pem:z"
+    ports:
+      - "127.0.0.1:8081:8081"
     logging:
       driver: "json-file"
       options:
