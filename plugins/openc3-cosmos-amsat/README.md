@@ -6,6 +6,12 @@ developed [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim).
 This plugin was [generated using the openc3
 cli](https://docs.openc3.com/docs/getting-started/gettingstarted#interfacing-with-your-hardware).
 
+## Listening Port
+
+This plugin and the [associated docker compose file in this repo](/docker-compose.yml) is setup to write commands and accept
+telemetry on port 8081. If this conflicts or you wish to change it, the docker compose and [plugin
+definition](plugin.txt) files must both be updated.
+
 ## Building
 
 1. `rake build VERSION=X.Y.Z`

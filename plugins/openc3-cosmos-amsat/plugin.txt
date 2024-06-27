@@ -3,5 +3,5 @@
 VARIABLE amsat_target_name AMSAT
 
 TARGET AMSAT <%= amsat_target_name %>
-INTERFACE <%= amsat_target_name %>_INT tcpip_server_interface.rb 8080 8081 10.0 nil BURST
+INTERFACE <%= amsat_target_name %>_INT tcpip_server_interface.rb 8081 8081 10.0 nil BURST
   MAP_TARGET <%= amsat_target_name %>
