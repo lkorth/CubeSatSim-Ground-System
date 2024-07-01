@@ -12,6 +12,12 @@ The ground system is run via [Docker Compose](https://docs.docker.com/compose/),
 docker-compose up
 ```
 
+## Setup
+
+In order to support CubeSatSim, the OpenC3 plugin must be installed. See the
+[plugin documentation](plugins/openc3-cosmos-amsat/README.md#installing-into-openc3-cosmos) for
+how to install the plugin.
+
 ## Architecture
 
 The ground system utilizes a configured instance of OpenC3 COSMOS as the ground system and
