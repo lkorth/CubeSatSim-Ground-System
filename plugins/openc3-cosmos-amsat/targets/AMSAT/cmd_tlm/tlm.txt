@@ -1,8 +1,100 @@
-TELEMETRY AMSAT STATUS BIG_ENDIAN "Telemetry description"
-  # Keyword      Name  BitSize Type   ID Description
-  APPEND_ID_ITEM ID    16      INT    1  "Identifier"
-  APPEND_ITEM    VALUE 32      FLOAT     "Value"
-  APPEND_ITEM    BOOL  8       UINT      "Boolean"
+TELEMETRY AMSAT REAL_TIME BIG_ENDIAN "AMSAT real time telemetry"
+  # Keyword          Name                BitSize Type   ID Description
+  APPEND_ID_ITEM     ID                  8       UINT    1 "Packet Identifier"
+  APPEND_ITEM        BATT_A_V            32      FLOAT     "Battery A voltage (0-2.5v scale)"
+    UNITS Volts V
+  APPEND_ITEM        BATT_B_V            32      FLOAT     "Battery A+B voltage (0-3.3v scale)"
+    UNITS Volts V
+  APPEND_ITEM        BATT_V              32      FLOAT     "Battery A+B+C voltage"
+    UNITS Volts V
+  APPEND_ITEM        X_AXIS_ACCEL        32      FLOAT     "STEM Payload Board acceleration around X axis"
+    UNITS G g
+  APPEND_ITEM        Y_AXIS_ACCEL        32      FLOAT     "STEM Payload Board acceleration around Y axis"
+    UNITS G g
+  APPEND_ITEM        Z_AXIS_ACCEL        32      FLOAT     "STEM Payload Board acceleration around Z axis"
+    UNITS G g
+  APPEND_ITEM        BATT_CURRENT        32      UINT      "Total battery DC current"
+    UNITS Milliamps mA
+  APPEND_ITEM        TEMPERATURE         32      FLOAT     "STEM Payload Board temperature sensor"
+    UNITS Celsius C
+  APPEND_ITEM        POS_X_V             32      FLOAT     "+X solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        NEG_X_V             32      FLOAT     "-X solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        POS_Y_V             32      FLOAT     "+Y solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        NEG_Y_V             32      FLOAT     "-Y solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        POS_Z_V             32      FLOAT     "+Z solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        NEG_Z_V             32      FLOAT     "-Z solar panel voltage"
+    UNITS Volts V
+  APPEND_ITEM        POS_X_CURRENT       32      UINT      "+X solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        NEG_X_CURRENT       32      UINT      "-X solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        POS_Y_CURRENT       32      UINT      "+Y solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        NEG_Y_CURRENT       32      UINT      "-Y solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        POS_Z_CURRENT       32      UINT      "+Z solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        NEG_Z_CURRENT       32      UINT      "-Z solar panel current"
+    UNITS Milliamps mA
+  APPEND_ITEM        PSU_V               32      FLOAT     "Power supply voltage"
+    UNITS Volts V
+  APPEND_ITEM        SPIN                16      INT       "Calculated spin rate via solar cells"
+    UNITS RPMs RPM
+  APPEND_ITEM        PRESSURE            32      INT       "STEM Payload Board pressure sensor"
+    UNITS Hectopascals hPa
+  APPEND_ITEM        ALTITUDE            32      INT       "STEM Payload Board altitude pressure"
+    UNITS Meters m
+  APPEND_ITEM        RESETS              16      UINT      "Software reset count"
+  APPEND_ITEM        RSSI                16      INT       "Received Signal Strength Indication (RSSI)"
+    UNITS Decibel-milliwatts dBm
+  APPEND_ITEM        IHU_TEMP            32      FLOAT     "Internal temperature of IHU from Pi"
+    UNITS Celsius C
+  APPEND_ITEM        X_AXIS_ANG_VEL      16      INT       "STEM Payload Board angular velocity around X axis"
+    UNITS Degrees-per-second d/s
+  APPEND_ITEM        Y_AXIS_ANG_VEL      16      INT       "STEM Payload Board angular velocity around Y axis"
+    UNITS Degrees-per-second d/s
+  APPEND_ITEM        Z_AXIS_ANG_VEL      16      INT       "STEM Payload Board angular velocity around Z axis"
+    UNITS Degrees-per-second d/s
+  APPEND_ITEM        HUMIDITY            32      FLOAT     "Humidity"
+    UNITS Percentage %
+  APPEND_ITEM        PSU_CURRENT         32      UINT      "Power supply current"
+    UNITS Milliamps mA
+  APPEND_ITEM        SENSOR_1            32      FLOAT     "STEM Payload Board extra sensor 1 (diode temperature)"
+    UNITS Celsius C
+  APPEND_ITEM        SENSOR_2            32      INT       "STEM Payload Board extra sensor 2"
+  APPEND_ITEM        STEM_PAYLOAD_STATUS 1       UINT      "STEM Payload Board status"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM    LABEL 0       STRING    "The label to apply"
+  APPEND_ITEM        SAFE_MODE           1       UINT      "Safe mode (low battery voltage)"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        SIMULATED_TELEMETRY 1       UINT      "Simulated telemetry indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        PAYLOAD_STATUS      1       UINT      "Payload status 1 failure indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        I2C_BUS_0_FAILURE   1       UINT      "I2C bus 0 failure indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        I2C_BUS_1_FAILURE   1       UINT      "I2C bus 1 failure indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        I2C_BUS_3_FAILURE   1       UINT      "I2C bus 3 failure indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        CAMERA_FAILURE      1       UINT      "Camera failure indicator"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        GROUND_COMMANDS     32      UINT      "Number of ground commands received"
+  APPEND_ITEM        RX_ANTENNA          1       UINT      "Receive antenna status"
+    STATE FALSE 0
+    STATE TRUE 1
+  APPEND_ITEM        TX_ANTENNA          1       UINT      "Transmit antenna status"
+    STATE FALSE 0
+    STATE TRUE 1
