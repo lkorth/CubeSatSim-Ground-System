@@ -67,34 +67,34 @@ TELEMETRY AMSAT REAL_TIME BIG_ENDIAN "AMSAT real time telemetry"
   APPEND_ITEM        SENSOR_1            32      FLOAT     "STEM Payload Board extra sensor 1 (diode temperature)"
     UNITS Celsius C
   APPEND_ITEM        SENSOR_2            32      INT       "STEM Payload Board extra sensor 2"
-  APPEND_ITEM        STEM_PAYLOAD_STATUS 1       UINT      "STEM Payload Board status"
+  APPEND_ITEM        STEM_PAYLOAD_STATUS 8       UINT      "STEM Payload Board status"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        SAFE_MODE           1       UINT      "Safe mode (low battery voltage)"
+  APPEND_ITEM        SAFE_MODE           8       UINT      "Safe mode (low battery voltage)"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        SIMULATED_TELEMETRY 1       UINT      "Simulated telemetry indicator"
+  APPEND_ITEM        SIMULATED_TELEMETRY 8       UINT      "Simulated telemetry indicator"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        PAYLOAD_STATUS      1       UINT      "Payload status 1 failure indicator"
+  APPEND_ITEM        PAYLOAD_STATUS      8       UINT      "Payload status 1 failure indicator"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        I2C_BUS_0_FAILURE   1       UINT      "I2C bus 0 failure indicator"
+  APPEND_ITEM        I2C_BUS_0_FAILURE   8       UINT      "I2C bus 0 failure indicator"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        I2C_BUS_1_FAILURE   1       UINT      "I2C bus 1 failure indicator"
+  APPEND_ITEM        I2C_BUS_1_FAILURE   8       UINT      "I2C bus 1 failure indicator"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        I2C_BUS_3_FAILURE   1       UINT      "I2C bus 3 failure indicator"
+  APPEND_ITEM        I2C_BUS_3_FAILURE   8       UINT      "I2C bus 3 failure indicator"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        CAMERA_FAILURE      1       UINT      "Camera failure indicator"
+  APPEND_ITEM        CAMERA_FAILURE      8       UINT      "Camera failure indicator"
     STATE FALSE 0
     STATE TRUE 1
   APPEND_ITEM        GROUND_COMMANDS     32      UINT      "Number of ground commands received"
-  APPEND_ITEM        RX_ANTENNA          1       UINT      "Receive antenna status"
+  APPEND_ITEM        RX_ANTENNA          8       UINT      "Receive antenna status"
     STATE FALSE 0
     STATE TRUE 1
-  APPEND_ITEM        TX_ANTENNA          1       UINT      "Transmit antenna status"
+  APPEND_ITEM        TX_ANTENNA          8       UINT      "Transmit antenna status"
     STATE FALSE 0
     STATE TRUE 1
