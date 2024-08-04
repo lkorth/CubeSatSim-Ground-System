@@ -8,9 +8,36 @@ developed [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim).
 The ground system is run via [Docker Compose](https://docs.docker.com/compose/), you must have
 [Docker](https://docs.docker.com/) and Docker Compose installed to run it.
 
-```bash
-docker-compose up
-```
+A start script is included in the repo that will ensure images are built, start the entire stack,
+and ensure it shuts down cleanly after a Ctrl+C.
+
+    ```bash
+    ./start.sh
+    ```
+
+Should you wish to run the stack manually, the following commands may be used instead of the
+`start.sh` script.
+
+Before the first run, or if any changes have been made to local `Dockerfile`s, the images must
+be built before they can be run:
+
+    ```bash
+    docker-compose build
+    ```
+
+After the images are built, the entire stack can be run:
+
+    ```bash
+    docker-compose up
+    ```
+
+The ground system can be stopped with a Ctrl+C, but the containers should also be removed
+in order to avoid conflicts on the next run. If any container reports errors or crashes, the
+first troubleshooting step should be to clean up the containers after they are stopped.
+
+    ```bash
+    docker-compose down
+    ```
 
 ## Setup
 
