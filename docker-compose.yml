@@ -3,6 +3,20 @@ networks:
     name: cubesatsim-ground-system
 
 services:
+  foxtelem:
+    container_name: foxtelem
+    build:
+      context: foxtelem
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    volumes:
+      - "foxtelem-db-v:/home/docker/FOXDB"
+    ports:
+      - 5901:5901
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"
+    privileged: true
+
   openc3-minio:
     image: "docker.io/openc3inc/openc3-minio:5.16.2"
     volumes:
@@ -174,4 +188,5 @@ volumes:
   openc3-redis-ephemeral-v: {}
   openc3-bucket-v: {}
   openc3-gems-v: {}
+  foxtelem-db-v: {}
 
