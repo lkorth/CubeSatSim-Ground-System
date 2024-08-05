@@ -15,6 +15,9 @@ and ensure it shuts down cleanly after a Ctrl+C.
 ./start.sh
 ```
 
+OpenC3 will now be accessible in a browser at `HOSTNAME.local:2900`. Where HOSTNAME is typically the
+name of the computer.
+
 Should you wish to run the stack manually, the following commands may be used instead of the
 `start.sh` script.
 
@@ -41,9 +44,22 @@ docker-compose down
 
 ## Setup
 
-In order to support CubeSatSim, the OpenC3 plugin must be installed. See the
-[plugin documentation](plugins/openc3-cosmos-amsat/README.md#installing-into-openc3-cosmos) for
-how to install the plugin.
+See notes below on [Compatibility](#compatibility) and [Hardware](#hardware).
+
+These steps assume a freshly imaged Linux system:
+
+1. Connect via SSH
+1. `sudo apt-get update && sudo apt-get upgrade`
+1. `sudo apt-get install git docker docker-compose`
+1. `sudo adduser $USER docker`
+1. `sudo reboot`
+1. Connect via SSH after reboot
+1. `git clone https://github.com/lkorth/CubeSatSim-Ground-System.git`
+1. `cd CubeSatSim-Ground-System`
+1. Follow [Running](#running) above to start the ground system
+1. In order to support CubeSatSim, the OpenC3 plugin must be installed. See the
+[plugin documentation](plugins/openc3-cosmos-amsat/README.md#installing-into-openc3-cosmos)
+for how to install the plugin.
 
 ## Architecture
 
