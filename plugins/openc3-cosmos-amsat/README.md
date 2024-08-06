@@ -9,8 +9,8 @@ cli](https://docs.openc3.com/docs/getting-started/gettingstarted#interfacing-wit
 ## Listening Port
 
 This plugin and the [associated docker compose file in this repo](/docker-compose.yml) is setup to write commands and accept
-telemetry on port 8081. If this conflicts or you wish to change it, the docker compose and [plugin
-definition](plugin.txt) files must both be updated.
+telemetry on port 8081. If this conflicts or you wish to change it, the docker compose,
+[telemetry-bridge](/telemetry-bridge/telemetry-bridge.rb) and [plugin definition](plugin.txt) files must all be updated.
 
 The [script](send_mock_realtime_telemetry_packet.rb) also utilizes this port and must be updated if
 the port changes as well.

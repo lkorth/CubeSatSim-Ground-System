@@ -17,6 +17,18 @@ services:
       - "/dev/bus/usb:/dev/bus/usb"
     privileged: true
 
+  telemetry-bridge:
+    container_name: telemetry-bridge
+    build:
+      context: telemetry-bridge
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    volumes:
+      - "foxtelem-db-v:/home/docker/FOXDB"
+    depends_on:
+      - "foxtelem"
+      - "openc3-operator"
+
   openc3-minio:
     image: "docker.io/openc3inc/openc3-minio:5.16.2"
     volumes:

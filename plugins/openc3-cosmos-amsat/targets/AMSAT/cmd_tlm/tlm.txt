@@ -1,5 +1,9 @@
 TELEMETRY AMSAT REAL_TIME BIG_ENDIAN "AMSAT real time telemetry"
   # Keyword          Name                BitSize Type   ID Description
+# APPEND_ITEM        FOXTELEM_TIME       112     STRING    "FoxTelem received packet time" # Not currently being parsed due to string conversion issues. Once parsed this will be used as PACKET_TIME https://docs.openc3.com/docs/configuration/telemetry#received-time-and-packet-time
+  APPEND_ITEM        FOX_ID              8       UINT      "Spacecraft Fox ID"
+  APPEND_ITEM        EPOCH               8       UINT      "Epoch"
+  APPEND_ITEM        UPTIME              32      UINT      "Spacecraft uptime"
   APPEND_ID_ITEM     ID                  8       UINT    1 "Packet Identifier"
   APPEND_ITEM        BATT_A_V            32      FLOAT     "Battery A voltage (0-2.5v scale)"
     UNITS Volts V
