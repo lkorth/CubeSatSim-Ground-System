@@ -43,6 +43,15 @@ first troubleshooting step should be to clean up the containers and volume after
 docker-compose down && docker volume remove cubesatsim-ground-system_foxtelem-db-v
 ```
 
+## Clearing all data
+
+In the event you want to clear out all persisted data in OpenC3, you can remove all the associated
+Docker volumes.
+
+```bash
+docker volume remove $(docker volume ls | grep cubesatsim-ground-system | cut -d' ' -f6)
+```
+
 ## Setup
 
 See notes below on [Compatibility](#compatibility) and [Hardware](#hardware).
