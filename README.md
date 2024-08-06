@@ -35,11 +35,12 @@ docker-compose up
 ```
 
 The ground system can be stopped with a Ctrl+C, but the containers should also be removed
-in order to avoid conflicts on the next run. If any container reports errors or crashes, the
-first troubleshooting step should be to clean up the containers after they are stopped.
+in order to avoid conflicts on the next run. Additionally the FoxTelem volume should be removed
+in order to prevent duplicate telemetry data. If any container reports errors or crashes, the
+first troubleshooting step should be to clean up the containers and volume after they are stopped.
 
 ```bash
-docker-compose down
+docker-compose down && docker volume remove cubesatsim-ground-system_foxtelem-db-v
 ```
 
 ## Setup
