@@ -52,6 +52,12 @@ Docker volumes.
 docker volume remove $(docker volume ls | grep cubesatsim-ground-system | cut -d' ' -f6)
 ```
 
+## Default Mode
+
+FoxTelem defaults to listening for telemetry in FSK, if you want to utilize a different mode (AFSK,
+BPSK, etc) you must [VNC to view the FoxTelem UI](/foxtelem#viewing-foxtelem-ui) and change the
+mode.
+
 ## Setup
 
 See notes below on [Compatibility](#compatibility) and [Hardware](#hardware).
