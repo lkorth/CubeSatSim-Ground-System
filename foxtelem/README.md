@@ -12,7 +12,7 @@ This Docker image is built automatically as part of the Docker Compose stack, ho
 wish to test modifications to it, it can be built via:
 
 ```bash
-docker build -t foxtelem:latest .
+docker build -t foxtelem .
 ```
 
 ## Running
@@ -20,7 +20,7 @@ docker build -t foxtelem:latest .
 Once built, the image can be run standalone via:
 
 ```bash
-docker run -p 5901:5901 --device /dev/bus/usb:/dev/bus/usb --privileged -t foxtelem:latest
+docker run -p 5901:5901 --device /dev/bus/usb:/dev/bus/usb --privileged -t foxtelem
 ```
 
 FoxTelem will automatically start running when the container starts.
