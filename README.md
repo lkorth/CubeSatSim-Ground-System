@@ -66,7 +66,7 @@ These steps assume a freshly imaged Linux system:
 
 1. Connect via SSH
 1. `sudo apt-get update && sudo apt-get upgrade`
-1. `sudo apt-get install git docker docker-compose rake`
+1. `sudo apt-get install git docker docker-compose`
 1. `sudo adduser $USER docker`
 1. `sudo reboot`
 1. Connect via SSH after reboot
