@@ -82,7 +82,10 @@ def process_data(payload)
   fields[1..-2].pack(FORMAT) # Last value always needs to be stripped off as it is the padding value. First value is currently being stripped due to string conversion isssues, see RECEIVE_TIME
 end
 
-newest_telemetry_file = Dir.glob("FOXDB/FOX7rttelemetry*.log").max_by {|f| File.mtime(f)}
+while (newest_telemetry_file = Dir.glob("FOXDB/FOX7rttelemetry*.log").max_by {|f| File.mtime(f)}).nil?
+  sleep(1)
+end
+
 file = open_file(newest_telemetry_file)
 
 while true
