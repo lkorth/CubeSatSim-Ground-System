@@ -56,6 +56,10 @@ FORMAT = [
   ["TXAntenna", "C"],
 ].collect(&:last).join()
 
+def detect_file()
+  (Dir.glob("FOXDB/FOX7rttelemetry*.log") + Dir.glob("FOXDB/FOX99rttelemetry*.log")).max_by {|f| File.mtime(f)}
+end
+
 def open_file(path)
   puts("Tailing #{path} for real-time telemetry")
   File.open(path)
@@ -82,11 +86,12 @@ def process_data(payload)
   fields[1..-2].pack(FORMAT) # Last value always needs to be stripped off as it is the padding value. First value is currently being stripped due to string conversion isssues, see RECEIVE_TIME
 end
 
-while (newest_telemetry_file = Dir.glob("FOXDB/FOX7rttelemetry*.log").max_by {|f| File.mtime(f)}).nil?
+# Wait for telemetry file to be available
+while detect_file().nil?
   sleep(1)
 end
 
-file = open_file(newest_telemetry_file)
+file = open_file(detect_file())
 
 while true
   while line = file.gets
@@ -96,7 +101,7 @@ while true
 
   sleep(1)
 
-  newest_telemetry_file = Dir.glob("FOXDB/FOX7rttelemetry*.log").max_by {|f| File.mtime(f)}
+  newest_telemetry_file = detect_file()
   if file.path != newest_telemetry_file
     file.close
     file = open_file(newest_telemetry_file)
