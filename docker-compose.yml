@@ -17,7 +17,6 @@ services:
       - 5901:5901
     devices:
       - "/dev/bus/usb:/dev/bus/usb"
-    privileged: true
 
   telemetry-bridge:
     container_name: telemetry-bridge

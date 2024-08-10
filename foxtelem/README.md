@@ -22,7 +22,7 @@ Note: a new image must be built after every change.
 Once built, the image can be run standalone via:
 
 ```bash
-docker run -p 5901:5901 --device /dev/bus/usb:/dev/bus/usb --privileged -t foxtelem
+docker run -p 5901:5901 --device /dev/bus/usb:/dev/bus/usb -t foxtelem
 ```
 
 FoxTelem will automatically start running when the container starts.
