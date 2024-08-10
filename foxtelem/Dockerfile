@@ -30,11 +30,13 @@ RUN rm FoxTelem_1.12z3_linux.tar.gz
 # FoxTelem lacks the native library of libusb4java for aarch64 platforms, this patches the jar file with the required .so file
 COPY org org
 RUN zip -ur FoxTelem.jar org
+RUN rm -rf org
 
 # Copy FoxTelem configuration files into the image
 RUN mkdir -p /root/.FoxTelem
 COPY FoxTelem.properties /root/.FoxTelem/.
 COPY CubeSat_Simulator_DUV.dat spacecraft/.
+COPY CubeSat_Simulator_PSK.dat spacecraft/.
 
 # Create a volume to be shared with other docker containers
 RUN mkdir FOXDB

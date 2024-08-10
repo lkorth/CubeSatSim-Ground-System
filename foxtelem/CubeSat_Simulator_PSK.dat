@@ -1,0 +1,17 @@
+#Fox 1 Telemetry Decoder User Spacecraft Properties
+name=CubeSatSim
+user_format=0
+mpptResistanceError=6.58
+track=false
+mpptSensorOffThreshold=1600
+user_useGPSTimeForT0=true
+BATTERY_CURRENT_ZERO=-1.834
+memsRestValueZ=2103
+minFreqBoundkHz=914950.0
+memsRestValueY=2131
+memsRestValueX=2129
+priority=1
+displayName=CubeSatSim-BPSK
+telemetryDownlinkFreqkHz=915000.0
+maxFreqBoundkHz=915050.0
+hasModeInHeader=false
