@@ -42,4 +42,4 @@ COPY CubeSat_Simulator_PSK.dat spacecraft/.
 RUN mkdir FOXDB
 VOLUME /home/docker/FOXDB
 
-ENTRYPOINT vncserver -geometry 1920x1080 && DISPLAY=:1 java -jar FoxTelem.jar
+ENTRYPOINT rm -rf /tmp/.X* && vncserver -geometry 1920x1080 && DISPLAY=:1 java -jar FoxTelem.jar
