@@ -158,7 +158,7 @@ services:
       - "./cacert.pem:/devel/cacert.pem:z"
       - "./openc3-traefik/traefik.yaml:/etc/traefik/traefik.yaml:z"
     ports:
-      - "127.0.0.1:2900:2900"
+      - 2900:2900
       - "127.0.0.1:2943:2943"
     restart: "unless-stopped"
     depends_on:
