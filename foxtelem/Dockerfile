@@ -5,6 +5,7 @@ ENV USER=root
 
 # Install required packages
 RUN apt-get update && apt-get install -y \
+  curl \
   tightvncserver \
   wget \
   zip
@@ -23,9 +24,9 @@ RUN apt-get update && apt-get install -y \
   temurin-8-jdk
 
 # Download FoxTelem
-RUN wget --quiet http://amsat.us/FoxTelem/linux/FoxTelem_1.12z3_linux.tar.gz
-RUN tar --strip-components=1 -zxf FoxTelem_1.12z3_linux.tar.gz
-RUN rm FoxTelem_1.12z3_linux.tar.gz
+RUN curl --output foxtelem.tar.gz http://amsat.us/FoxTelem/linux/FoxTelem_1.12z3_linux.tar.gz
+RUN tar --strip-components=1 -zxf foxtelem.tar.gz
+RUN rm foxtelem.tar.gz
 
 # FoxTelem lacks the native library of libusb4java for aarch64 platforms, this patches the jar file with the required .so file
 COPY org org
